@@ -1,7 +1,6 @@
+[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)
 
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
-
-[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)
 
 [中文](README_CH.md)
 # About Ai-Review
