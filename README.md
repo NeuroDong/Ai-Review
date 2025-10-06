@@ -1,9 +1,9 @@
 [中文](README_CH.md)
 
-<img src="Logo.png" width="100%">
+<img src="https://github.com/NeuroDong/Ai-Review/tree/main/Logo.png" width="100%">
 
 # About Ai-Review
-This repository specializes in using AI to optimize papers. 
+This repository is dedicated to using AI to optimize paper writing and submission preparation, making it easier for researchers to check the strengths, weaknesses, and improvement suggestions of manuscripts.
 
 Click [here](https://neurodong.github.io/Ai-Review/) for a quick usage on web page.
 
