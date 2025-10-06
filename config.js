@@ -8,5 +8,5 @@ window.APP_CONFIG = window.APP_CONFIG || {
   HOSTED_MODEL: 'deepseek/deepseek-chat-v3.1:free',
   // Optional: put a public/free API key here for demo use. THIS IS VISIBLE TO ANYONE.
   // Free API Key from OpenRouter (50 requests/day limit)
-  API_KEY: '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',  
+  API_KEY: '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',  
 };

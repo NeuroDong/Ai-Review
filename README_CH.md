@@ -1,7 +1,7 @@
-[English](README.md)
 
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
+[English](README.md)
 # 关于 Ai-Review（中文说明）
 
 本仓库致力于使用AI优化论文写作与投稿准备，方便研究者检查稿件的优点、缺点与改进建议。
