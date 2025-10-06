@@ -11,11 +11,30 @@
     <h1>Ai Review</h1>
 
     <div class="card">
-      <label>OpenRouter API Key (never stored)</label>
-      <input id="apiKey" type="password" placeholder="sk-..." />
+      <label>Choose mode</label>
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:8px;">
+        <label><input type="radio" name="mode" value="userKey" checked /> Use My API Key</label>
+        <label><input type="radio" name="mode" value="hosted" /> Quick Try</label>
+      </div>
 
-      <label>Model (e.g., deepseek/deepseek-chat-v3.1:free, click <a href="https://openrouter.ai/models">here</a> for more models)</label>
-      <input id="model" type="text" placeholder="gpt-4o-mini" />
+      <div id="userKeyArea">
+        <label>API Provider</label>
+        <select id="providerSelect">
+          <option value="openrouter">OpenRouter (default)</option>
+          <option value="deepseek">Deepseek</option>
+        </select>
+        <label>API Key (never stored)</label>
+        <input id="apiKey" type="password" placeholder="sk-..." />
+      </div>
+
+      <div id="hostedArea" style="display:none;">
+        <label>Hosted API URL (POST endpoint)</label>
+        <input id="hostedUrl" type="text" placeholder="https://your-hosted.example.com/api/review" />
+        <div class="hint">This internal API (deepseek/deepseek-chat-v3.1:free) allows up to 50 free calls per day. If the daily limit has been reached, please try again tomorrow or use your own API.</div>
+      </div>
+
+  <label id="modelLabel">Model (e.g., deepseek/deepseek-chat-v3.1:free, click <a href="https://openrouter.ai/models">here</a> for more models)</label>
+  <input id="model" type="text" placeholder="deepseek-chat" />
 
       <label>Upload PDF (max 10MB)</label>
       <input id="pdfFile" type="file" accept="application/pdf" />
@@ -48,6 +67,7 @@
   <!-- pdf.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js"></script>
   <!-- html2pdf removed - exporting as Markdown now -->
+  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
