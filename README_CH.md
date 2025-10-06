@@ -1,6 +1,6 @@
 [English](README.md)
 
-<img src="https://github.com/NeuroDong/Ai-Review/tree/main/Logo.png" width="100%">
+<img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
 # 关于 Ai-Review（中文说明）
 
