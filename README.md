@@ -1,8 +1,8 @@
-[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)
-[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](#)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white)](#) 
-[![HTML5](https://img.shields.io/badge/HTML5-5-orange?logo=html5&logoColor=white)](#) 
-[![CSS3](https://img.shields.io/badge/CSS3-3-blue?logo=css3&logoColor=white)](#)
+[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)    
+[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](#)    
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white)](#)    
+[![HTML5](https://img.shields.io/badge/HTML5-5-orange?logo=html5&logoColor=white)](#)    
+[![CSS3](https://img.shields.io/badge/CSS3-3-blue?logo=css3&logoColor=white)](#)    
 
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
