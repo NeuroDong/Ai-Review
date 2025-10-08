@@ -6,9 +6,9 @@
 # About Ai-Review
 This repository is dedicated to using AI to optimize paper writing and submission preparation, making it easier for researchers to check the strengths, weaknesses, and improvement suggestions of manuscripts.
 
-Click [here](https://neurodong.github.io/Ai-Review/) for a quick usage on web page.
+Click [here](https://neurodong.github.io/Ai-Review/) for a quick usage on web page. The following figure is a usage preview. 
 
-![Usage Preview ](preview.gif)
+![Usage Preview](Show.gif)
 
 # Continuous Update
 This repository will be updated continuously for a long time. Welcome to use this repository, raise issues, and push requests to help optimize this template to help better community members' papers get accepted.
