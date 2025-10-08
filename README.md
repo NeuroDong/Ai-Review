@@ -8,6 +8,17 @@ This repository is dedicated to using AI to optimize paper writing and submissio
 
 Click [here](https://neurodong.github.io/Ai-Review/) for a quick usage on web page.
 
+<video src="Readme_video.mp4"
+       width="640"
+       autoplay
+       muted
+       loop
+       playsinline
+       controls
+       style="margin-top:8px;border:1px solid #ccc;border-radius:6px;">
+  您的浏览器不支持视频播放。
+</video>
+
 # Continuous Update
 This repository will be updated continuously for a long time. Welcome to use this repository, raise issues, and push requests to help optimize this template to help better community members' papers get accepted.
 
