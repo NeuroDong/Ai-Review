@@ -7,7 +7,11 @@
 
 本仓库致力于使用AI优化论文写作与投稿准备，方便研究者检查稿件的优点、缺点与改进建议。
 
-快速使用（网页版）: 请访问 [在线使用](https://neurodong.github.io/Ai-Review/)。
+快速使用（网页版）: 请访问 [在线使用](https://neurodong.github.io/Ai-Review/)。下图是使用预览：
+
+<p align="center">
+	<img src="Show.gif" alt="Usage Preview" width="800" />
+</p>
 
 # 持续更新
 本仓库会长期持续更新。欢迎使用本仓库、提交 issue 或 pull request，以帮助改进提示词模板与网站功能，从而帮助社区伙伴们提升论文质量与被接受的概率。
