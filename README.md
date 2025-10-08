@@ -8,7 +8,9 @@ This repository is dedicated to using AI to optimize paper writing and submissio
 
 Click [here](https://neurodong.github.io/Ai-Review/) for a quick usage on web page. The following figure is a usage preview. 
 
-![Usage Preview](Show.gif)
+<p align="center">
+	<img src="Show.gif" alt="Usage Preview" width="800" />
+</p>
 
 # Continuous Update
 This repository will be updated continuously for a long time. Welcome to use this repository, raise issues, and push requests to help optimize this template to help better community members' papers get accepted.
