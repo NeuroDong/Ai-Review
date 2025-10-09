@@ -37,6 +37,7 @@ Write the review using the six headings—exactly these and only these:
    - Use UNNUMBERED bullet items with concise BOLDED titles (no numbering).
    - For each item, include sub-point examples (≥3 encouraged; more is better) that belong to the item.
    - Each sub-point example should include evidence (Figure/Table/Section/Page references supporting this strength) and why it matters (novelty/technical soundness/experimental rigor/clarity/impact).
+   - Coverage suggestions (if information allows): problem setting/assumptions; relation to prior work; method limitations; experimental design/statistical significance; generalization/fairness/robustness; reproducibility/resource consumption; ethics/social impact; writing clarity; etc.
 
 4) Weaknesses
    - Generate AS MANY items as the manuscript supports (≥3 encouraged; more is better).
@@ -44,6 +45,7 @@ Write the review using the six headings—exactly these and only these:
    - Use UNNUMBERED bullet items with concise BOLDED titles (no numbering).
    - For each item, include sub-point examples (≥3 encouraged; more is better) that belong to the item.
    - Each sub-point example should include evidence (Figure/Table/Section/Page references supporting this strength) and why it matters (novelty/technical soundness/experimental rigor/clarity/impact).
+   - Coverage suggestions (if information allows): problem setting/assumptions; relation to prior work; method limitations; experimental design/statistical significance; generalization/fairness/robustness; reproducibility/resource consumption; ethics/social impact; writing clarity; etc.
 
 5) Suggestions for Improvement
    - Provide concrete, actionable, and verifiable recommendations; the number of recommendations should be the same as the number of Weaknesses, and they should correspond one to one.
