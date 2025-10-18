@@ -19,6 +19,10 @@
 # 审稿效果示例
 请参见示例： [Deep Residual Learning for Image Recognition 的审稿示例](Examples/Ai_review_in_Deep_Residual_Learning_for_Image_Recognition.pdf)。
 
+# 提示词工程
+- **逆向提示词工程 (已包括)**: 通过以往大型模型生成的优秀结果反推提示词的内容。这里的优秀结果来自AAAI2026的AI审稿。
+- **小样本提示词工程 (即将推出)**: 给模型提供一些优秀例子，以便它能够更好地执行任务。详细见[这里](https://www.promptingguide.ai/zh/techniques/fewshot)。
+
 # 更新与新闻
 - **[06/10/2025]** 网页版增加了快速体验功能(不需要用户设置API)，还允许了用户设置Deepseek的API
 - **[02/10/2025]** 更新了网页端的 AI 审稿功能。
