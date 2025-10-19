@@ -20,8 +20,8 @@
 请参见示例： [Deep Residual Learning for Image Recognition 的审稿示例](Examples/Examples/Review_in_Deep_Residual_Learning_for_Image_Recognition.pdf)。
 
 # 提示词工程
-- **逆向提示词工程 (已包括)**: 通过以往大型模型生成的优秀结果反推提示词的内容。这里的优秀结果来自AAAI2026的AI审稿。
-- **小样本提示词工程 (即将推出)**: 给模型提供一些优秀例子，以便它能够更好地执行任务。详细见[这里](https://www.promptingguide.ai/zh/techniques/fewshot)。
+- ***逆向提示词工程 (已包括)***: 通过以往大型模型生成的优秀结果反推提示词的内容。这里的优秀结果来自AAAI2026的AI审稿。
+- ***小样本提示词工程 (即将推出)***: 给模型提供一些优秀例子，以便它能够更好地执行任务。详细见[这里](https://www.promptingguide.ai/zh/techniques/fewshot)。
 
 # 更新与新闻
 - **[18/10/2025]** 更新了审稿效果样例, 见[这里](Examples/)。这些样例是使用小样本提示词工程技术生成的。
