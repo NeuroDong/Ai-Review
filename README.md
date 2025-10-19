@@ -23,6 +23,7 @@ Please see: [Review example of "Deep Residual Learning for Image Recognition"](E
 - **Few-Shot Prompting (Coming soon)**: Few-Shot Prompting is giving a model a few examples so it can perform a task better. See [here](https://www.promptingguide.ai/techniques/fewshot) for details.
 
 # Updates & News
+- **[18/10/2025]** Updated the review effect samples, see [here](Examples/). These examples are generated using Few-Shot Prompting engineering techniques.
 - **[06/10/2025]** The web version adds "Quick Try" (no need for users to set up API), and also allows users to set up Deepseek API.
 - **[02/10/2025]** Updated the function of using Ai Review on the web page.
 - **[20/09/2025]** Added math symbol and formula checks to enforce vulnerabilities.
