@@ -1,6 +1,3 @@
-// Embedded system prompt (internal to the frontend)
-const SYSTEM_PROMPT_EN = `[System Role]\nYou are an experienced reviewer for top-tier ML/AI venues (AAAI/NeurIPS/ICLR style).\nProduce a text-only, structured review with NO scores, ratings, or accept/reject decision.\n\n[Critical Constraints]\n1) Use EXACTLY these section headings in this order (no extras, no omissions):\n   - Synopsis of the paper\n   - Summary of Review\n   - Strengths\n   - Weaknesses\n   - Suggestions for Improvement\n   - References\n2) Do NOT output any scores, ratings, or accept/reject verdict.\n3) Evidence-first: Every claim MUST be supported by anchors to the manuscript\n   (figure/table/equation/section/page). If evidence is missing, explicitly write:\n   "No direct evidence found in the manuscript."\n4) Maintain anonymity; do not guess author identities/affiliations; keep a constructive tone.\n5) Avoid speculative claims; do not cite external sources unless they appear in the paper’s reference list.\n\n[Input]\n- Full anonymous manuscript (plain text or OCR output).\n\n[Output Template]\nWrite the review using the six headings—exactly these and only these:\n\n1) Synopsis of the paper\n   - Concisely and neutrally restate the problem, method, core contributions, and main results (≤150 words).\n   - Avoid subjective judgments or decision-like language.\n\n2) Summary of Review\n   - Provide 3–5 sentences summarizing your overall view (key pros AND cons).\n   - After each reason, add an evidence anchor (e.g., "see Table 2; Sec. 4.1; Eq. (5)").\n   - If evidence is missing, state: "No direct evidence found in the manuscript."\n\n3) Strengths\n   - Generate AS MANY items as the manuscript supports (≥3 encouraged; more is better).\n   - Use UNNUMBERED bullet items with concise BOLDED titles (no numbering).\n   - For each item, include sub-point examples (≥3 encouraged; more is better) that belong to the item.\n   - Each sub-point example should include evidence (Figure/Table/Section/Page references supporting this strength) and why it matters (novelty/technical soundness/experimental rigor/clarity/impact).\n\n4) Weaknesses\n   - Generate AS MANY items as the manuscript supports (≥3 encouraged; more is better).\n   - Include one item that evaluates the correctness, clarity, or consistency of mathematical formulations (e.g., equations, notation, derivations).\n   - Use UNNUMBERED bullet items with concise BOLDED titles (no numbering).\n   - For each item, include sub-point examples (≥3 encouraged; more is better) that belong to the item.\n   - Each sub-point example should include evidence (Figure/Table/Section/Page references supporting this strength) and why it matters (novelty/technical soundness/experimental rigor/clarity/impact).\n\n5) Suggestions for Improvement\n   - Provide concrete, actionable, and verifiable recommendations; the number of recommendations should be the same as the number of Weaknesses, and they should correspond one to one.\n   - Use UNNUMBERED bullet items with concise BOLDED titles (no numbering).\n   - For each item, the number of sub-point examples must correspond to the number of sub-point examples in the Weaknesses.\n\n6) References\n   - List ONLY items that you explicitly cite within this review AND that appear in the manuscript’s reference list.\n   - Use the following format for citations in the comments above:  [Author et al., Year].\n   - If nothing is cited or the manuscript’s reference list is unavailable, write "None".\n\n[Style & Length]\n- Tone: objective, polite, and constructive.\n- Keep explicit, verifiable anchors close to claims; prefer multiple anchors when applicable.\n- Suggested total length: 800–1200 words (adjust as needed to match manuscript complexity).\n`;
-const SYSTEM_PROMPT_ZH = `系统角色\n您是一名经验丰富的顶级机器学习/人工智能会议（AAAI/NeurIPS/ICLR 风格）的审稿人。\n请生成仅包含文本、结构化的审稿意见，且不得包含任何分数、评级或接收/拒绝决定。\n\n关键约束\n1. 必须严格使用以下章节标题，且顺序完全一致（不得增删）：\n   - Synopsis of the paper\n   - Summary of Review\n   - Strengths\n   - Weaknesses\n   - Suggestions for Improvement\n   - References\n\n2. 不得输出任何分数、评级或接收/拒绝结论。\n\n3. 基于证据优先原则：每个观点必须有来自稿件的证据支撑\n   （如：figure/table/equation/section/page）。\n   如果稿件中缺少证据，请明确写出：\n   “No direct evidence found in the manuscript.”\n\n4. 保持匿名性：不要猜测作者身份或单位；保持建设性语气。\n\n5. 避免推测性陈述：不要引用稿件之外的外部资料，除非该资料已出现在论文参考文献中。\n\n输入\n- 完整的匿名稿件（纯文本或 OCR 输出）。\n\n输出模板\n请严格按照以下六个标题撰写审稿意见（仅这六个标题，不得增删）：\n\n1) Synopsis of the paper\n- 简明客观地重述论文的问题、方法、核心贡献和主要结果（≤150 字）。\n- 避免主观判断或带有决定倾向的语言。\n\n2) Summary of Review\n- 用 3–5 句话总结整体看法（包括主要优点和缺点）。\n- 每个理由后添加证据锚点（如：“see Table 2; Sec. 4.1; Eq. (5)”）。\n- 如果缺少证据，请写：“No direct evidence found in the manuscript.”\n\n3) Strengths\n- 根据稿件支持，列出尽可能多的优点（建议 ≥3 条，越多越好）。\n- 使用无编号的项目符号，每项需有简洁加粗标题（不编号）。\n- 每个优点下包含至少 3 个子点示例，每个示例需包含：\n  - 证据来源（Figure/Table/Section/Page）\n  - 以及其重要性（如新颖性、技术可靠性、实验严谨性、清晰度、影响力）。\n\n4) Weaknesses\n- 根据稿件支持，列出尽可能多的缺点（建议 ≥3 条，越多越好）。\n- 包括一项评估数学公式（例如方程式、符号、推导）的正确性、清晰度或一致性的弱点。\n- 使用无编号的项目符号，每项需有简洁加粗标题（不编号）。\n- 每个缺点下包含至少 3 个子点示例，每个示例需包含：\n  - 证据来源（Figure/Table/Section/Page）\n  - 以及其重要性（如新颖性、技术可靠性、实验严谨性、清晰度、影响力）。\n\n5) Suggestions for Improvement\n- 提供具体、可执行、可验证的改进建议；\n- 建议数量应与 Weaknesses 数量一致，并一一对应。\n- 使用无编号的项目符号，每项需有简洁加粗标题（不编号）。\n- 每个建议下的子点数量应与对应 Weaknesses 的子点数量一致。\n\n6) References\n- 仅列出在本审稿意见中明确引用且出现在稿件参考文献中的条目。\n- 引用格式：[Author et al., Year]。\n- 如果未引用或稿件无参考文献，请写：“None”。\n\n风格与长度\n- 语气：客观、礼貌、建设性。\n- 紧贴证据锚点，优先多重证据。\n- 建议总长度：800–1200 字（可根据稿件复杂度调整）。\n`;
 
 // UI elements
 const apiKeyInput = document.getElementById('apiKey');
@@ -38,6 +35,25 @@ const statusEl = document.getElementById('status');
 const responseEl = document.getElementById('response');
 const langSelect = document.getElementById('lang');
 const exportPdfBtn = document.getElementById('exportPdfBtn');
+// Prompting mode controls
+const promptModeInputs = document.getElementsByName('promptMode');
+const fewshotHint = document.getElementById('fewshotHint');
+
+function getPromptMode() {
+  let mode = 'pure';
+  if (promptModeInputs && promptModeInputs.length) {
+    for (const m of promptModeInputs) { if (m.checked) { mode = m.value; break; } }
+  }
+  return mode;
+}
+function updatePromptModeUI() {
+  const mode = getPromptMode();
+  if (fewshotHint) fewshotHint.style.display = mode === 'fewshot' ? '' : 'none';
+}
+if (promptModeInputs && promptModeInputs.length) {
+  for (const m of promptModeInputs) m.addEventListener('change', updatePromptModeUI);
+  updatePromptModeUI();
+}
 
 const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 
@@ -123,10 +139,52 @@ submitBtn.addEventListener('click', async () => {
     const text = await extractTextFromPDF_fromArrayBuffer(arrayBuffer);
     statusEl.textContent = 'Text extracted, preparing request to model...';
 
-    // Build the messages payload: system prompt + paper text
+    // Build the messages payload: system prompt (loaded from Prompts) + optional examples + paper text
     const chosenLang = (langSelect && langSelect.value) || 'en';
-    const systemPromptText = chosenLang === 'zh' ? SYSTEM_PROMPT_ZH : SYSTEM_PROMPT_EN;
-    const systemMessage = { role: 'system', content: systemPromptText };
+    const selectedPromptMode = getPromptMode();
+
+    // Load prompt template text from /Prompts based on language & mode
+    const systemPromptText = await loadPromptTemplate(chosenLang, selectedPromptMode);
+    if (!systemPromptText || !systemPromptText.trim()) {
+      const proto = (typeof location !== 'undefined' && location && location.protocol) ? location.protocol : '';
+      const pathTip = `Expected files in /Prompts (Pure_*.txt or Prompt_and_Example_*.txt) relative to index.html.`;
+      const fileProtoTip = proto === 'file:'
+        ? 'Detected that the page is opened via file://. Browsers block fetching sibling files in this mode. Please run a local web server and open via http:// (see instructions below).'
+        : 'If running over http(s), ensure the Prompts/*.txt files are present and deployed with correct path/casing.';
+      throw new Error(`Failed to load prompt template from Prompts folder. ${fileProtoTip} ${pathTip}`);
+    }
+
+    // If few-shot, try to append example reviews content
+    let examplesText = '';
+    if (selectedPromptMode === 'fewshot') {
+      try {
+        let ex1 = '', ex2 = '';
+        try { ex1 = await fetchText('Examples/review_in_Resnet.md'); } catch (_) {}
+        try { ex2 = await fetchText('Examples/review_in_Verified.md'); } catch (_) {}
+        if ((!ex1 || !ex1.trim()) || (!ex2 || !ex2.trim())) {
+          // fallback to inline examples if available
+          const elA = document.getElementById('example-resnet');
+          const elB = document.getElementById('example-verified');
+          if (!ex1 && elA) ex1 = elA.textContent || elA.innerText || '';
+          if (!ex2 && elB) ex2 = elB.textContent || elB.innerText || '';
+        }
+        const MAX_EXAMPLES_CHARS = 40000; // cap combined size to be safe
+        const combined = `\n\n[Examples Begin]\n` +
+          `# Example Review A (ResNet)\n` + (ex1 || '').trim() + `\n\n` +
+          `# Example Review B (Verified)\n` + (ex2 || '').trim() + `\n` +
+          `[Examples End]\n`;
+        examplesText = combined.length > MAX_EXAMPLES_CHARS
+          ? combined.slice(0, MAX_EXAMPLES_CHARS) + '\n...[truncated examples]\n'
+          : combined;
+      } catch (e) {
+        console.warn('Failed to load few-shot examples', e);
+      }
+    }
+
+    const systemContent = examplesText
+      ? `${systemPromptText}\n\n${examplesText}`
+      : systemPromptText;
+    const systemMessage = { role: 'system', content: systemContent };
 
     // To avoid huge payloads, we may truncate the paper text if too long. Keep first ~200k chars
     let paperContent = `PDF_CONTENT_BEGIN\n${text}\nPDF_CONTENT_END`;
@@ -135,7 +193,7 @@ submitBtn.addEventListener('click', async () => {
       paperContent = paperContent.slice(0, MAX_CHARS) + '\n\n[...truncated, original was longer]';
     }
 
-    const userIntro = `Please answer based on the paper content below. Follow the system prompt instructions to produce the review.\n\n${paperContent}\n`;
+  const userIntro = `Please answer based on the paper content below. Follow the system prompt instructions to produce the review.\n\n${paperContent}\n`;
     const userMessage = { role: 'user', content: userIntro };
 
   statusEl.textContent = mode === 'hosted' ? 'Requesting hosted API... (processing may take a while)' : 'Requesting model... (Processing may take a while)';
@@ -172,14 +230,12 @@ submitBtn.addEventListener('click', async () => {
             model,
             messages: [systemMessage, userMessage],
             temperature: 0.1,
-            max_tokens: 1500,
           };
           const promptPayload = {
             model,
             prompt: joinedInput,
             input: joinedInput,
             temperature: 0.1,
-            max_output_tokens: 1500,
           };
 
           // Build headers and include Authorization if an API key is available
@@ -524,7 +580,6 @@ async function callOpenRouterChat(apiKey, model, messages) {
     model,
     messages,
     temperature: 0.1,
-    max_tokens: 1500,
   };
 
   try {
@@ -559,7 +614,6 @@ async function callOpenRouterChat(apiKey, model, messages) {
     model,
     input: joinedInput,
     temperature: 0.1,
-    max_output_tokens: 1500,
   };
 
   const fallbackRes = await fetch(responsesUrl, {
@@ -596,7 +650,7 @@ async function callOpenRouterChat(apiKey, model, messages) {
 async function callDeepseekChat(apiKey, model, messages) {
   const url = 'https://api.deepseek.com/chat/completions';
   // Many Deepseek deployments are wire-compatible with OpenRouter/OpenAI; try chat-style then fallback to other shapes.
-  const payload = { model, messages, temperature: 0.1, max_tokens: 1500 };
+  const payload = { model, messages, temperature: 0.1 };
   const headers = { 'Content-Type': 'application/json' };
   if (apiKey) headers['Authorization'] = `Bearer ${apiKey}`;
 
@@ -606,7 +660,7 @@ async function callDeepseekChat(apiKey, model, messages) {
     try {
       const responsesUrl = url.replace('/chat/completions', '/responses');
       const joinedInput = messages.map(m => `[${m.role.toUpperCase()}]\n${m.content}`).join('\n\n');
-      const fallbackPayload = { model, input: joinedInput, temperature: 0.1, max_output_tokens: 1500 };
+  const fallbackPayload = { model, input: joinedInput, temperature: 0.1 };
       res = await fetch(responsesUrl, { method: 'POST', headers, body: JSON.stringify(fallbackPayload) });
     } catch (e) {
       // ignore and continue
@@ -622,4 +676,38 @@ async function callDeepseekChat(apiKey, model, messages) {
   const extracted = extractModelText(data);
   if (extracted) return extracted;
   return JSON.stringify(data, null, 2);
+}
+
+// --- Helpers to load prompt templates and example texts ---
+async function fetchText(path) {
+  const res = await fetch(path, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
+  return await res.text();
+}
+
+async function loadPromptTemplate(lang, promptMode) {
+  // Try multiple candidates: .md then .txt, English/Chinese variants based on mode
+  const l = (lang || 'en').toLowerCase();
+  const m = (promptMode || 'pure').toLowerCase();
+  const candidates = [];
+  if (l === 'zh') {
+    candidates.push(m === 'fewshot' ? 'Prompts/Prompt_and_Example_Chinese.md' : 'Prompts/Pure_Prompt_Chinese.md');
+  } else {
+    candidates.push(m === 'fewshot' ? 'Prompts/Prompt_and_Example_English.md' : 'Prompts/Pure_Prompt_English.md');
+  }
+  for (const file of candidates) {
+    try {
+      return await fetchText(file);
+    } catch (_) { /* try next */ }
+  }
+  // Fallback to inline <script type=text/markdown> when running via file://
+  try {
+    const id = l === 'zh' ? (m === 'fewshot' ? 'prompt-zh-fewshot' : 'prompt-zh-pure')
+                          : (m === 'fewshot' ? 'prompt-en-fewshot' : 'prompt-en-pure');
+    const el = document.getElementById(id);
+    if (el) return el.textContent || el.innerText || '';
+  } catch (e) {
+    console.warn('Inline prompt not found', e);
+  }
+  return '';
 }
