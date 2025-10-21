@@ -23,6 +23,7 @@ Please see: [Review example of "Deep Residual Learning for Image Recognition"](E
 - ***Few-Shot Prompting (Now available)***: In the web UI, choose "Prompt + Examples (Few-Shot)" under "Prompting mode". The app will load templates from `Prompts/` and include example reviews from `Examples/review_in_Resnet.md` and `Examples/review_in_Verified.md` to guide the model. See [few-shot prompting](https://www.promptingguide.ai/techniques/fewshot) for background.
 
 # Updates & News
+- **[21/10/2025]** Added Few-Shot Prompting function to the webpage, see [here](https://neurodong.github.io/Ai-Review/).
 - **[18/10/2025]** Updated the review effect samples, see [here](Examples/). These examples are generated using Few-Shot Prompting engineering techniques.
 - **[06/10/2025]** The web version adds "Quick Try" (no need for users to set up API), and also allows users to set up Deepseek API.
 - **[02/10/2025]** Updated the function of using Ai Review on the web page.

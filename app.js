@@ -143,31 +143,21 @@ submitBtn.addEventListener('click', async () => {
     const chosenLang = (langSelect && langSelect.value) || 'en';
     const selectedPromptMode = getPromptMode();
 
-    // Load prompt template text from /Prompts based on language & mode
+    // Load prompt template text from prompts.js based on language & mode
     const systemPromptText = await loadPromptTemplate(chosenLang, selectedPromptMode);
     if (!systemPromptText || !systemPromptText.trim()) {
-      const proto = (typeof location !== 'undefined' && location && location.protocol) ? location.protocol : '';
-      const pathTip = `Expected files in /Prompts (Pure_*.txt or Prompt_and_Example_*.txt) relative to index.html.`;
-      const fileProtoTip = proto === 'file:'
-        ? 'Detected that the page is opened via file://. Browsers block fetching sibling files in this mode. Please run a local web server and open via http:// (see instructions below).'
-        : 'If running over http(s), ensure the Prompts/*.txt files are present and deployed with correct path/casing.';
-      throw new Error(`Failed to load prompt template from Prompts folder. ${fileProtoTip} ${pathTip}`);
+      const tip = 'Failed to load prompt template. Ensure prompts.js is loaded correctly.';
+      throw new Error(tip);
     }
 
     // If few-shot, try to append example reviews content
     let examplesText = '';
     if (selectedPromptMode === 'fewshot') {
       try {
-        let ex1 = '', ex2 = '';
-        try { ex1 = await fetchText('Examples/review_in_Resnet.md'); } catch (_) {}
-        try { ex2 = await fetchText('Examples/review_in_Verified.md'); } catch (_) {}
-        if ((!ex1 || !ex1.trim()) || (!ex2 || !ex2.trim())) {
-          // fallback to inline examples if available
-          const elA = document.getElementById('example-resnet');
-          const elB = document.getElementById('example-verified');
-          if (!ex1 && elA) ex1 = elA.textContent || elA.innerText || '';
-          if (!ex2 && elB) ex2 = elB.textContent || elB.innerText || '';
-        }
+        // 直接从 prompts.js 中读取 examples，不受浏览器安全限制
+        let ex1 = window.getExample ? window.getExample('example-resnet') : '';
+        let ex2 = window.getExample ? window.getExample('example-verified') : '';
+        
         const MAX_EXAMPLES_CHARS = 40000; // cap combined size to be safe
         const combined = `\n\n[Examples Begin]\n` +
           `# Example Review A (ResNet)\n` + (ex1 || '').trim() + `\n\n` +
@@ -678,36 +668,10 @@ async function callDeepseekChat(apiKey, model, messages) {
   return JSON.stringify(data, null, 2);
 }
 
-// --- Helpers to load prompt templates and example texts ---
-async function fetchText(path) {
-  const res = await fetch(path, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
-  return await res.text();
-}
-
 async function loadPromptTemplate(lang, promptMode) {
-  // Try multiple candidates: .md then .txt, English/Chinese variants based on mode
-  const l = (lang || 'en').toLowerCase();
-  const m = (promptMode || 'pure').toLowerCase();
-  const candidates = [];
-  if (l === 'zh') {
-    candidates.push(m === 'fewshot' ? 'Prompts/Prompt_and_Example_Chinese.md' : 'Prompts/Pure_Prompt_Chinese.md');
-  } else {
-    candidates.push(m === 'fewshot' ? 'Prompts/Prompt_and_Example_English.md' : 'Prompts/Pure_Prompt_English.md');
-  }
-  for (const file of candidates) {
-    try {
-      return await fetchText(file);
-    } catch (_) { /* try next */ }
-  }
-  // Fallback to inline <script type=text/markdown> when running via file://
-  try {
-    const id = l === 'zh' ? (m === 'fewshot' ? 'prompt-zh-fewshot' : 'prompt-zh-pure')
-                          : (m === 'fewshot' ? 'prompt-en-fewshot' : 'prompt-en-pure');
-    const el = document.getElementById(id);
-    if (el) return el.textContent || el.innerText || '';
-  } catch (e) {
-    console.warn('Inline prompt not found', e);
+  // 直接从 prompts.js 中加载，不受浏览器安全限制
+  if (window.getPromptTemplate) {
+    return window.getPromptTemplate(lang, promptMode);
   }
   return '';
 }

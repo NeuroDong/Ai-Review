@@ -24,8 +24,9 @@
 - ***小样本提示词工程 (已上线)***: 网页端在“Prompting mode”里选择“Prompt + Examples (Few-Shot)”，系统将从 `Prompts/` 读取相应模板，并把 `Examples/review_in_Resnet.md` 与 `Examples/review_in_Verified.md` 作为示例一并提供给大模型以提升效果。背景介绍见[小样本提示词](https://www.promptingguide.ai/zh/techniques/fewshot)。
 
 # 更新与新闻
+- **[21/10/2025]** 在网页上加入了Few-Shot Prompting功能，见[这里](https://neurodong.github.io/Ai-Review/)。
 - **[18/10/2025]** 更新了审稿效果样例, 见[这里](Examples/)。这些样例是使用小样本提示词工程技术生成的。
-- **[06/10/2025]** 网页版增加了快速体验功能(不需要用户设置API)，还允许了用户设置Deepseek的API
+- **[06/10/2025]** 网页版增加了快速体验功能(不需要用户设置API)，还允许了用户设置Deepseek的API。
 - **[02/10/2025]** 更新了网页端的 AI 审稿功能。
 - **[20/09/2025]** 在提示词中强化了数学符号与公式检查。
 - **[14/09/2025]** 新增 “Deep Residual Learning for Image Recognition” 的审稿示例。
