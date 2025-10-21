@@ -22,6 +22,7 @@
 # 提示词工程
 - ***逆向提示词工程 (已包括)***: 通过以往大型模型生成的优秀结果反推提示词的内容。这里的优秀结果来自AAAI2026的AI审稿。
 - ***小样本提示词工程 (已包括)***: 网页端在“Prompting mode”里选择“Prompt + Examples (Few-Shot)”，系统将从 `Prompts/` 读取相应模板，并把 `Examples/review_in_Resnet.md` 与 `Examples/review_in_Verified.md` 作为示例一并提供给大模型以提升效果。背景介绍见[小样本提示词](https://www.promptingguide.ai/zh/techniques/fewshot)。
+- ***思考链提示词工程 (准备加入)***: 让模型在回答问题前，显式地进行逐步推理，以提高复杂任务回答的准确性和逻辑性。
 
 # 更新与新闻
 - **[21/10/2025]** 在网页上加入了Few-Shot Prompting功能，见[这里](https://neurodong.github.io/Ai-Review/)。
