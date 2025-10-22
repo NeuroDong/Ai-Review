@@ -17,7 +17,7 @@
 本仓库会长期持续更新。欢迎使用本仓库、提交 issue 或 pull request，以帮助改进提示词模板与网站功能，从而帮助社区伙伴们提升论文质量与被接受的概率。
 
 # 审稿效果示例
-请参见示例： [Deep Residual Learning for Image Recognition 的审稿示例](Examples/Examples/Review_in_Deep_Residual_Learning_for_Image_Recognition.pdf)。
+请参见示例： [Deep Residual Learning for Image Recognition 的审稿示例](Examples/Review_in_Deep_Residual_Learning_for_Image_Recognition.pdf)。
 
 # 提示词工程
 - ***逆向提示词工程 (已包括)***: 通过以往大型模型生成的优秀结果反推提示词的内容。这里的优秀结果来自AAAI2026的AI审稿。
