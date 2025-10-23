@@ -206,7 +206,7 @@ submitBtn.addEventListener('click', async () => {
         answer = await callOpenRouterChat(apiKey, model, [systemMessage, userMessage]);
       }
     } else {
-      // Quick Try: if hostedUrl is provided (hidden), try calling it; otherwise use local mock review
+      // Quick Try: if hostedUrl is provided (hidden), try calling it; otherwise inform user to use their API key or configure hosted API
       // determine final hosted URL: prefer explicit input, then APP_CONFIG, else empty
       const finalHostedUrl = hostedUrl || (window.APP_CONFIG && window.APP_CONFIG.HOSTED_API_URL) || '';
       if (finalHostedUrl) {
@@ -308,8 +308,8 @@ submitBtn.addEventListener('click', async () => {
           throw e;
         }
       } else {
-        // local mock - quick demo without any network
-        answer = await mockReview(text, (langSelect && langSelect.value) || 'en');
+        // No hosted URL configured and mock review disabled
+        throw new Error('API配置不正确！');
       }
     }
 
@@ -493,18 +493,7 @@ function extractModelText(obj) {
   return null;
 }
 
-// Local mock review generator for Quick Try mode (no network)
-async function mockReview(paperText, lang = 'en') {
-  const preview = (paperText || '').slice(0, 800).replace(/\s+/g, ' ').trim();
-  const has = preview.length > 40;
-  const synopsis = has ? `Synopsis of the paper\n- (Demo) Restatement: ${preview.slice(0, 200)}...` : 'Synopsis of the paper\n- No direct evidence found in the manuscript.';
-  const summary = has ? 'Summary of Review\n- (Demo) The paper appears to present a method with experimental evaluation; details are simulated for demo purposes.' : 'Summary of Review\n- No direct evidence found in the manuscript.';
-  const strengths = `Strengths\n- **Demo: Clear motivation**\n  - Example: The preview text indicates a stated problem.\n- **Demo: Evaluations present**\n  - Example: The preview includes experimental descriptions.\n- **Demo: Relevant scope**\n  - Example: Manuscript targets a relevant research area.`;
-  const weaknesses = `Weaknesses\n- **Demo: Limited verification**\n  - Example: This quick demo cannot verify equations, figures, or numerical claims.\n- **Demo: Missing anchors**\n  - Example: No precise figure/table anchors provided by demo.\n- **Demo: Surface-level suggestions**\n  - Example: Recommendations are high-level.`;
-  const suggestions = `Suggestions for Improvement\n- **Add clear anchors**\n  - Recommendation: Label figures/tables/sections clearly for automated anchoring.\n- **Provide short abstract**\n  - Recommendation: Add a concise summary paragraph to help automated reviewers.\n- **Include representative experiments**\n  - Recommendation: Make sure key ablations and baselines are easy to find.`;
-  const references = 'References\n- None (demo mode)';
-  return [synopsis, summary, strengths, weaknesses, suggestions, references].join('\n\n');
-}
+// mockReview removed: Quick Try offline demo disabled
 
 async function extractTextFromPDF(file) {
   // Read the file as ArrayBuffer

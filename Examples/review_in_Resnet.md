@@ -1,12 +1,8 @@
-
 # Synopsis of the paper
-- The manuscript introduces a residual learning framework for training very deep convolutional neural networks by reformulating target mappings as residual functions added via identity shortcut connections (Eq. (1); Fig. 2; Sec. 3.1–3.2; p.2–3). It presents architectures up to 152 layers on ImageNet and over 1000 layers on CIFAR-10, with bottleneck blocks to control complexity (Fig. 3–5; Sec. 3.3; Table 1; p.3–6). Empirical evaluations show improved optimization behavior and accuracy compared to plain networks, with state-of-the-art results on ImageNet classification (Tables 3–5; Sec. 4.1; p.5–6) and substantial gains in detection/localization tasks (Sec. 4.3; Tables 7–14; p.8–12).
+The manuscript introduces a residual learning framework for training very deep convolutional neural networks by reformulating target mappings as residual functions added via identity shortcut connections. It presents architectures up to 152 layers on ImageNet and over 100 layers on CIFAR-10, with bottleneck blocks to control complexity. Empirical evaluations show improved optimization behavior and accuracy compared to plain networks, with state-of-the-art results on ImageNet classification and substantial gains in detection/localization tasks.
 
 # Summary of Review
-- The paper addresses the degradation problem in deep networks with a simple, well-motivated residual formulation and rigorous, large-scale experiments (Fig. 1; Sec. 1; Sec. 3.1–3.2; Sec. 4.1; p.1–6). 
-- Empirical evidence is broad and convincing across ImageNet, CIFAR-10, COCO, and VOC, with clear architecture descriptions and training protocols (Fig. 3–6; Table 1; Sec. 3.4; Sec. 4.1–4.3; p.3–12).
-- However, theoretical justification for why residual learning improves optimization is largely intuitive; formal analysis is limited and deferred (Sec. 3.1; statement referencing future work; p.3). No direct evidence found in the manuscript.
-- Some implementation details and ablation analyses (e.g., role of BN, shortcut type choices, initialization sensitivity) could be expanded for reproducibility and to isolate causal factors (Sec. 3.4; Table 3 options A/B/C; Fig. 4; p.4–6).
+The paper addresses the degradation problem in deep networks with a simple, well-motivated residual formulation and rigorous, large-scale experiments. Empirical evidence is broad and convincing across ImageNet, CIFAR-10, COCO, and VOC, with clear architecture descriptions and training protocols. However, theoretical justification for why residual learning improves optimization is largely intuitive; formal analysis is limited and deferred. No direct evidence found in the manuscript. Some implementation details and ablation analyses (e.g., role of BN, shortcut type choices, initialization sensitivity) could be expanded for reproducibility and to isolate causal factors.
 
 # Strengths
 - **Clear identification of the degradation problem and motivation**
