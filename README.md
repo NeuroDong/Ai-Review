@@ -23,6 +23,9 @@ Please see: [Review example of "Deep Residual Learning for Image Recognition"](E
 - ***Few-Shot Prompting (Included)***: In the web UI, choose "Prompt + Examples (Few-Shot)" under "Prompting mode". The app will load templates from `Prompts/` and include example reviews from `Examples/review_in_Resnet.md` and `Examples/review_in_Verified.md` to guide the model. See [few-shot prompting](https://www.promptingguide.ai/techniques/fewshot) for background.
 - ***Chain-of-Thought Prompting (Ready to add)***: Let the model explicitly perform step-by-step reasoning before answering questions to improve the accuracy and logic of answers to complex tasks.
 
+# View prompts
+Please see [here](Prompts/). We welcome your feedback on this prompt and help us optimize it to serve the community better.
+
 # Updates & News
 - **[21/10/2025]** Added Few-Shot Prompting function to the webpage, see [here](https://neurodong.github.io/Ai-Review/).
 - **[18/10/2025]** Updated the review effect samples, see [here](Examples/). These examples are generated using Few-Shot Prompting engineering techniques.

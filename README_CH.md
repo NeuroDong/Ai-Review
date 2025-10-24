@@ -24,6 +24,9 @@
 - ***小样本提示词工程 (已包括)***: 网页端在“Prompting mode”里选择“Prompt + Examples (Few-Shot)”，系统将从 `Prompts/` 读取相应模板，并把 `Examples/review_in_Resnet.md` 与 `Examples/review_in_Verified.md` 作为示例一并提供给大模型以提升效果。背景介绍见[小样本提示词](https://www.promptingguide.ai/zh/techniques/fewshot)。
 - ***思考链提示词工程 (准备加入)***: 让模型在回答问题前，显式地进行逐步推理，以提高复杂任务回答的准确性和逻辑性。
 
+# 查看提示词
+见 [这里](Prompts/). 欢迎每个人在这个提示词上提出自己的见解，并帮我们优化它，以便更好地为社区服务。
+
 # 更新与新闻
 - **[21/10/2025]** 在网页上加入了Few-Shot Prompting功能，见[这里](https://neurodong.github.io/Ai-Review/)。
 - **[18/10/2025]** 更新了审稿效果样例, 见[这里](Examples/)。这些样例是使用小样本提示词工程技术生成的。
