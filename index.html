@@ -45,6 +45,15 @@
       <input id="pdfFile" type="file" accept="application/pdf" />
       <div id="fileHint" class="hint"></div>
 
+      <label style="display:block; margin-top:8px;"><input type="checkbox" id="vlmToggle" /> Accurately extract PDF content</label>
+      <div id="vlmArea" style="display:none; margin-top:8px;">
+        <button id="submitVLMBtn">Submit PDF to VLM</button>
+        <span id="vlmStatus" class="hint" style="margin-left:8px;"></span>
+
+        <label style="display:block; margin-top:8px;">VLM Output (Markdown) — editable</label>
+        <textarea id="vlmOutput" style="width:100%; height:200px; font-family:monospace;"></textarea>
+      </div>
+
       <label>Interface language / prompt selection</label>
       <select id="lang">
         <option value="en">English</option>

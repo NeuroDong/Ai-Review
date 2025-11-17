@@ -1,4 +1,4 @@
-[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)&nbsp;&nbsp;&nbsp;&nbsp;[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![HTML5](https://img.shields.io/badge/HTML5-5-orange?logo=html5&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![CSS3](https://img.shields.io/badge/CSS3-3-blue?logo=css3&logoColor=white)](#)
+[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)&nbsp;&nbsp;&nbsp;&nbsp;[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![LLM](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/simonw/llm)&nbsp;&nbsp;&nbsp;&nbsp;[![VLM](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/facebookresearch/nougat)&nbsp;&nbsp;&nbsp;&nbsp;[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![HTML5](https://img.shields.io/badge/HTML5-5-orange?logo=html5&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![CSS3](https://img.shields.io/badge/CSS3-3-blue?logo=css3&logoColor=white)](#)
 
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
@@ -23,10 +23,15 @@ Please see: [Review example of "Deep Residual Learning for Image Recognition"](E
 - ***Few-Shot Prompting (Included)***: In the web UI, choose "Prompt + Examples (Few-Shot)" under "Prompting mode". The app will load templates from `Prompts/` and include example reviews from `Examples/review_in_Resnet.md` and `Examples/review_in_Verified.md` to guide the model. See [few-shot prompting](https://www.promptingguide.ai/techniques/fewshot) for background.
 - ***Chain-of-Thought Prompting (Ready to add)***: Let the model explicitly perform step-by-step reasoning before answering questions to improve the accuracy and logic of answers to complex tasks.
 
+# Ancillary Functions
+- ***Use VLM to accurately extract content from PDF (Included)***: The accuracy of PDF content extraction significantly impacts the review effectiveness, so a function utilizing VLM for accurate PDF content extraction has been implemented here. This function has been added to the online website (Click "Accurately extract PDF content" the online website). It is optional for users. Note that the VLM may be unstable. If extraction fails, cancel the precise extraction function, and the original functions can still be used as usual.
+- ***Scientific drawing quality evaluation function (Ready to add)***: We plan to use VLM to comment on the quality of images in PDFs to help users better optimize their images.
+
 # View prompts
 Please see [here](Prompts/). We welcome your feedback on this prompt and help us optimize it to serve the community better.
 
 # Updates & News
+- **[16/11/2025]** Added the function to accurately extract PDF content using VLM.
 - **[21/10/2025]** Added Few-Shot Prompting function to the webpage, see [here](https://neurodong.github.io/Ai-Review/).
 - **[18/10/2025]** Updated the review effect samples, see [here](Examples/). These examples are generated using Few-Shot Prompting engineering techniques.
 - **[06/10/2025]** The web version adds "Quick Try" (no need for users to set up API), and also allows users to set up Deepseek API.

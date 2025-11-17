@@ -1,4 +1,4 @@
-[![在线演示](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)&nbsp;&nbsp;&nbsp;&nbsp;[![提示词工程](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![HTML5](https://img.shields.io/badge/HTML5-5-orange?logo=html5&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![CSS3](https://img.shields.io/badge/CSS3-3-blue?logo=css3&logoColor=white)](#)
+[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)&nbsp;&nbsp;&nbsp;&nbsp;[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![LLM](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/simonw/llm)&nbsp;&nbsp;&nbsp;&nbsp;[![VLM](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/facebookresearch/nougat)&nbsp;&nbsp;&nbsp;&nbsp;[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![HTML5](https://img.shields.io/badge/HTML5-5-orange?logo=html5&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![CSS3](https://img.shields.io/badge/CSS3-3-blue?logo=css3&logoColor=white)](#)
 
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
@@ -24,10 +24,15 @@
 - ***小样本提示词工程 (已包括)***: 网页端在“Prompting mode”里选择“Prompt + Examples (Few-Shot)”，系统将从 `Prompts/` 读取相应模板，并把 `Examples/review_in_Resnet.md` 与 `Examples/review_in_Verified.md` 作为示例一并提供给大模型以提升效果。背景介绍见[小样本提示词](https://www.promptingguide.ai/zh/techniques/fewshot)。
 - ***思考链提示词工程 (准备加入)***: 让模型在回答问题前，显式地进行逐步推理，以提高复杂任务回答的准确性和逻辑性。
 
+# 辅助功能
+- ***使用 VLM 精准提取 PDF 内容（已包含）***：PDF内容提取的准确性直接影响审稿效果，因此已集成了基于VLM的精准PDF内容提取功能。该功能已加入网页版 (在网页上点击“Accurately extract PDF content”)，用户可按需启用（可选）。注意该功能可能不稳定，如果提取失败，取消精准提取功能，原来的功能可以照常使用。
+- ***科研图像质量评估功能（准备加入）***：计划使用 VLM 对 PDF 中的图像质量进行评估并给出改进建议，帮助用户更好地优化图片。
+
 # 查看提示词
 见 [这里](Prompts/). 欢迎每个人在这个提示词上提出自己的见解，并帮我们优化它，以便更好地为社区服务。
 
 # 更新与新闻
+- **[16/11/2025]** 增加了使用 VLM 精确提取 PDF 内容的功能。
 - **[21/10/2025]** 在网页上加入了Few-Shot Prompting功能，见[这里](https://neurodong.github.io/Ai-Review/)。
 - **[18/10/2025]** 更新了审稿效果样例, 见[这里](Examples/)。这些样例是使用小样本提示词工程技术生成的。
 - **[06/10/2025]** 网页版增加了快速体验功能(不需要用户设置API)，还允许了用户设置Deepseek的API。

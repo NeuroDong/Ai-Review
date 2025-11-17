@@ -27,6 +27,63 @@ if (providerSelect) {
 }
 const pdfFileInput = document.getElementById('pdfFile');
 const fileHint = document.getElementById('fileHint');
+// VLM (visual-language model) UI elements
+const vlmToggle = document.getElementById('vlmToggle');
+const vlmArea = document.getElementById('vlmArea');
+const submitVLMBtn = document.getElementById('submitVLMBtn');
+const vlmOutput = document.getElementById('vlmOutput');
+const vlmStatus = document.getElementById('vlmStatus');
+// Debug capture for VLM interactions (populated during submitPdfToVLM)
+const vlmDebug = { upload: null, join: null, predict: [] };
+// expose for console access
+try { window.vlmDebug = vlmDebug; } catch (e) {}
+// add small debug UI inside vlmArea for easy copying
+function ensureVlmDebugUI() {
+  try {
+    if (!vlmArea) return;
+    // Debug UI removed: keep vlmDebug exposed to window for console access, but do not add elements to the page.
+    try { window.vlmDebug = vlmDebug; } catch (e) {}
+  } catch (e) { console.warn('ensureVlmDebugUI failed', e); }
+}
+ensureVlmDebugUI();
+
+// VLM extraction timer: show elapsed time in `vlmStatus` while a VLM request is in progress.
+let _vlmTimerInterval = null;
+let _vlmTimerStart = 0;
+function _formatElapsed(ms) {
+  const total = Math.floor(ms / 1000);
+  const m = Math.floor(total / 60).toString().padStart(2, '0');
+  const s = (total % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+}
+function startVlmTimer(message) {
+  try {
+    stopVlmTimer();
+    _vlmTimerStart = Date.now();
+    if (vlmStatus) vlmStatus.textContent = `${message} Time elapsed: 00:00`;
+    _vlmTimerInterval = setInterval(() => {
+      const elapsed = Date.now() - _vlmTimerStart;
+      if (vlmStatus) vlmStatus.textContent = `${message} Time elapsed: ${_formatElapsed(elapsed)}`;
+    }, 1000);
+  } catch (e) { console.warn('startVlmTimer failed', e); }
+}
+function stopVlmTimer() {
+  try {
+    if (_vlmTimerInterval) { clearInterval(_vlmTimerInterval); _vlmTimerInterval = null; }
+  } catch (e) { console.warn('stopVlmTimer failed', e); }
+}
+// Stop the VLM timer and write a final elapsed time message into the vlmStatus element.
+function stopVlmTimerAndShowFinal(message) {
+  try {
+    const elapsed = _vlmTimerStart ? (Date.now() - _vlmTimerStart) : 0;
+    stopVlmTimer();
+    if (vlmStatus) {
+      const timeStr = _formatElapsed(elapsed);
+      if (message) vlmStatus.textContent = `${message} (Duration: ${timeStr})`;
+      else vlmStatus.textContent = `Completed in ${timeStr}`;
+    }
+  } catch (e) { console.warn('stopVlmTimerAndShowFinal failed', e); }
+}
 const modelNotice = document.getElementById('modelNotice');
 const modelDots = document.getElementById('modelDots');
 // userQuestionInput removed on purpose (feature removed)
@@ -99,6 +156,342 @@ pdfFileInput.addEventListener('change', () => {
   else { fileHint.textContent = `Selected: ${f.name} (${(f.size/1024/1024).toFixed(2)} MB)`; submitBtn.disabled = false; }
 });
 
+// VLM toggle: show/hide VLM area
+if (vlmToggle) {
+  vlmToggle.addEventListener('change', () => {
+    if (vlmArea) vlmArea.style.display = vlmToggle.checked ? '' : 'none';
+  });
+}
+
+// Default VLM base URL: read only from `window.APP_CONFIG.VLM_URL` (set in config.js).
+// No hard-coded fallback here by design — configure `VLM_URL` in `config.js`.
+const DEFAULT_VLM_URL = (window.APP_CONFIG && window.APP_CONFIG.VLM_URL);
+
+// Try sending PDF to VLM. We attempt a few common endpoint shapes for Gradio/Gradios-style deployments.
+async function submitPdfToVLM(file) {
+  if (!file) throw new Error('No PDF file provided');
+  if (!DEFAULT_VLM_URL) {
+    throw new Error('VLM URL not configured. Please set VLM_URL in config.js');
+  }
+  const base = DEFAULT_VLM_URL.replace(/\/$/, '');
+  // First, try the upload -> predict flow commonly used by Gradio apps
+  try {
+    const uploadUrl = base + '/gradio_api/upload';
+    if (vlmStatus) vlmStatus.textContent = `Uploading file to ${uploadUrl} ...`;
+    console.log('Attempting Gradio upload flow to', uploadUrl);
+    const uploadFd = new FormData();
+    try { uploadFd.append('file', file, file.name); } catch (e) {}
+    try { uploadFd.append('pdf_file', file, file.name); } catch (e) {}
+    const upRes = await fetch(uploadUrl, { method: 'POST', body: uploadFd });
+    const upText = await upRes.text();
+    // record upload debug
+    try { vlmDebug.upload = { status: upRes.status, ok: upRes.ok, text: upText }; } catch (e) {}
+    if (upRes.ok) {
+      let uploadedRef = null;
+      try {
+        const upJson = JSON.parse(upText);
+        try { vlmDebug.upload.json = upJson; } catch (e) {}
+        // typical response is an array of server file paths: ["/tmp/.../blob"]
+        if (Array.isArray(upJson) && upJson.length) uploadedRef = upJson[0];
+        else if (upJson && upJson[0]) uploadedRef = upJson[0];
+        else uploadedRef = upJson;
+      } catch (e) {
+        // not JSON, use raw text
+        uploadedRef = upText;
+      }
+      console.log('Upload response parsed as', uploadedRef);
+      if (uploadedRef) {
+        // Attempt to obtain a session_hash via /gradio_api/join (many Gradio apps use session-based flows)
+        let sessionHash = null;
+        try {
+          const joinUrl = base + '/gradio_api/join';
+          console.log('Attempting join at', joinUrl);
+          const joinRes = await fetch(joinUrl, { method: 'GET' });
+          const joinText = await joinRes.text();
+          try { vlmDebug.join = { status: joinRes.status, text: joinText, json: JSON.parse(joinText) }; } catch (e) { vlmDebug.join = { status: joinRes.status, text: joinText }; }
+          try { const joinJson = JSON.parse(joinText); if (joinJson && joinJson.session_hash) sessionHash = joinJson.session_hash; }
+          catch (e) { /* ignore parse */ }
+          console.log('join response', joinRes.status, joinText, 'sessionHash=', sessionHash);
+        } catch (e) { console.warn('join failed', e); }
+
+        // Now call the predict endpoint(s) with fn_index=0 and data array matching component inputs
+        const predictCandidates = [ '/gradio_api/predict', '/gradio_api/queue/predict', '/gradio_api/api/predict', '/gradio_api/predict/0' ];
+        const pages = '';
+        const dpi = 96;
+        const payloadTemplates = [
+          (fileRef) => ({ fn_index: 0, data: [fileRef, pages, dpi], session_hash: sessionHash }),
+          (fileRef) => ({ fn_index: 0, data: [fileRef, pages, dpi] }),
+          (fileRef) => ({ fn_index: 0, data: [{ path: fileRef }, pages, dpi], session_hash: sessionHash }),
+          (fileRef) => ({ fn_index: 0, data: [{ name: file.name, url: fileRef }, pages, dpi], session_hash: sessionHash }),
+        ];
+
+        for (const ep of predictCandidates) {
+          const predictUrl = base + ep;
+          if (vlmStatus) vlmStatus.textContent = `Calling predict ${predictUrl} ...`;
+          for (const makePayload of payloadTemplates) {
+            const payload = makePayload(uploadedRef);
+            try {
+              console.log('Trying predict', predictUrl, payload);
+              const pRes = await fetch(predictUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+              const pText = await pRes.text();
+              try { vlmDebug.predict.push({ url: predictUrl, status: pRes.status, ok: pRes.ok, text: pText }); } catch (e) {}
+              if (!pRes.ok) {
+                console.warn('predict attempt non-ok', predictUrl, pRes.status, pText);
+                // surface body to UI for easier copying
+                if (vlmStatus) vlmStatus.textContent = `Predict ${predictUrl} returned ${pRes.status}: ${pText}`;
+                continue;
+              }
+              try {
+                const pJson = JSON.parse(pText);
+                const extracted = extractModelText(pJson) || (pJson.data && Array.isArray(pJson.data) ? pJson.data.join('\n') : null);
+                if (extracted && extracted.trim()) return { raw: pJson, text: extracted };
+                return { raw: pJson, text: JSON.stringify(pJson, null, 2) };
+              } catch (e) {
+                if (pText && pText.trim()) return { raw: pText, text: pText };
+              }
+            } catch (e) {
+              console.warn('predict fetch failed', predictUrl, e);
+              if (vlmStatus) vlmStatus.textContent = `Predict ${predictUrl} failed: ${e && e.message ? e.message : e}`;
+            }
+          }
+        }
+      }
+    } else {
+      console.warn('Upload returned non-ok', upRes.status, upText);
+    }
+  } catch (e) {
+    console.warn('Gradio upload->predict flow failed', e);
+    // fallthrough to the generic candidatePaths probing below
+  }
+  const candidatePaths = [
+    // Try the Gradio-style /predict first (matches the example usage from the server)
+    // Also include common Gradios/Gradio app prefix '/gradio_api' which many deployments expose
+    '/gradio_api/predict',
+    '/gradio_api/predict/',
+    '/gradio_api/api/predict',
+    '/gradio_api/api/predict/',
+    '/gradio_api/api/predict/0',
+    '/gradio_api/predict/0',
+    '/gradio_api/',
+    '/predict',
+    '/predict/',
+    '/api/predict',
+    '/api/predict/',
+    '/api/predict/0',
+    '/',
+  ];
+
+  // Build form data with the file. Many Gradio apps accept a multipart form with a file field.
+  const form = (path) => {
+    const fd = new FormData();
+    // Some Gradio demos expect the file field to be named 'pdf_file' (see server example).
+    // Add both names to maximize compatibility: 'pdf_file' and 'file'.
+    try { fd.append('pdf_file', file, file.name); } catch (e) {}
+    try { fd.append('file', file, file.name); } catch (e) {}
+    // Include common optional parameters that the VLM might accept
+    // (server example used pages and dpi). Leave pages empty to indicate all pages.
+    fd.append('pages', '');
+    fd.append('dpi', '96');
+    // include fn_index if present on server side (some Gradio demos)
+    // fd.append('fn_index', '0');
+    return fd;
+  };
+
+  let lastErr = null;
+  // Try endpoints in order until one returns a parsable response
+  for (const p of candidatePaths) {
+    const url = base + p;
+    try {
+      if (vlmStatus) vlmStatus.textContent = `Sending to VLM: ${url}`;
+      const res = await fetch(url, { method: 'POST', body: form(p) });
+      // Some deployments return JSON, others plain text. Capture both.
+      const text = await res.text();
+      // If the server returned a 404/Not Found, include the raw body in the error path so it's visible.
+      if (!res.ok) {
+        // return a detailed error-like object so caller can show it
+        const errObj = { status: res.status, statusText: res.statusText, body: text };
+        // continue to try other candidate paths unless this is the last
+        lastErr = new Error(JSON.stringify(errObj));
+        // try next candidate
+        console.warn('VLM returned non-ok status', errObj, 'for', url);
+        continue;
+      }
+      // Try parse JSON
+      try {
+        const json = JSON.parse(text);
+        // Gradio predict often returns { "data": [ ... ] } or nested outputs. Use existing extractor.
+        const extracted = extractModelText(json) || (json.data && Array.isArray(json.data) ? json.data.join('\n') : null);
+        if (extracted && extracted.trim()) return { raw: json, text: extracted };
+        // If not directly extracted, fall back to text representation
+        return { raw: json, text: JSON.stringify(json, null, 2) };
+      } catch (e) {
+        // Not JSON — treat as plain text
+        if (text && text.trim()) {
+          return { raw: text, text };
+        }
+      }
+      lastErr = new Error('Empty response from ' + url);
+    } catch (e) {
+      lastErr = e;
+      console.warn('VLM attempt failed for', url, e);
+      // try next
+    }
+  }
+  throw lastErr || new Error('All VLM endpoints failed');
+}
+
+// Try submitting via the official @gradio/client (preferred for Gradio/Gradios servers)
+// This mirrors the server-side example using Client.connect() and client.predict('/predict', ...)
+async function submitPdfToVLM_viaGradioClient(file) {
+  if (!file) throw new Error('No PDF file provided');
+  if (!DEFAULT_VLM_URL) throw new Error('VLM URL not configured');
+  const base = DEFAULT_VLM_URL.replace(/\/$/, '') + '/'; // Client.connect expects a trailing slash in the example
+
+  try {
+    // Dynamically import the ESM module from unpkg CDN
+    const mod = await import('https://unpkg.com/@gradio/client?module');
+    const Client = mod && (mod.Client || mod.default?.Client || mod.default) ;
+    if (!Client || !Client.connect) {
+      throw new Error('Failed to load @gradio/client from CDN');
+    }
+
+    // Connect to the Gradio/Gradios app
+    const client = await Client.connect(base);
+    // Debug: log client object and any api_prefix information to help locate the correct server path
+    try {
+      console.log('Gradio client connected', client);
+      // some client builds expose api_prefix or similar fields
+      const apiPrefix = client.api_prefix || client._api_prefix || (client?.appConfig && client.appConfig.api_prefix) || (client?.serverConfig && client.serverConfig.api_prefix);
+      if (apiPrefix) console.log('Detected gradio api_prefix:', apiPrefix);
+    } catch (e) {
+      console.debug('Failed to inspect gradio client for api_prefix', e);
+    }
+
+    // Call predict on the /predict endpoint as the server example shows.
+    // Use field name 'pdf_file' to match the example. Pass pages='' to indicate all pages and dpi=96.
+    const payload = { pdf_file: file, pages: '', dpi: 96 };
+    // client.predict can accept File/Blob directly in browser
+    const result = await client.predict('/predict', payload);
+
+    // Gradio client returns an object; try to extract useful text
+    // Common shape: { data: [...] } where the first element may be text
+    if (result && typeof result === 'object') {
+      // If result.data is array, join entries into text
+      if (Array.isArray(result.data) && result.data.length > 0) {
+        const joined = result.data.map(d => (typeof d === 'string' ? d : JSON.stringify(d))).join('\n');
+        return { raw: result, text: joined };
+      }
+      // Fallback: try extractModelText
+      const extracted = extractModelText(result);
+      if (extracted) return { raw: result, text: extracted };
+      return { raw: result, text: JSON.stringify(result, null, 2) };
+    }
+
+    // If result is string
+    if (typeof result === 'string') return { raw: result, text: result };
+
+    throw new Error('Unexpected result from gradio client: ' + String(result));
+  } catch (e) {
+    // Normalize important error messages for higher-level handler
+    console.warn('Gradio client submission failed', e);
+    throw e;
+  }
+}
+
+// Simple REST API path: call the FastAPI /api/convert endpoint you just added server-side.
+async function submitPdfToVLM_viaSimpleAPI(file) {
+  if (!file) throw new Error('No PDF file provided');
+  if (!DEFAULT_VLM_URL) throw new Error('VLM URL not configured');
+  const base = DEFAULT_VLM_URL.replace(/\/$/, '');
+  const url = base + '/api/convert';
+  try {
+    if (vlmStatus) vlmStatus.textContent = `Uploading to simple API: ${url}`;
+    const fd = new FormData();
+    fd.append('file', file, file.name);
+    fd.append('pages', '');
+    fd.append('dpi', String(96));
+    const res = await fetch(url, { method: 'POST', body: fd });
+    const txt = await res.text();
+    if (!res.ok) {
+      throw new Error(`Simple API returned ${res.status}: ${txt}`);
+    }
+    try {
+      const json = JSON.parse(txt);
+      if (json && json.ok && json.markdown) return { raw: json, text: json.markdown };
+      if (json && json.markdown) return { raw: json, text: json.markdown };
+      return { raw: json, text: JSON.stringify(json, null, 2) };
+    } catch (e) {
+      // response not JSON
+      return { raw: txt, text: txt };
+    }
+  } catch (e) {
+    console.warn('Simple API submission failed', e);
+    throw e;
+  }
+}
+
+// Hook up Submit PDF to VLM button
+if (submitVLMBtn) {
+  submitVLMBtn.addEventListener('click', async () => {
+    const file = pdfFileInput.files[0];
+    if (!file) { alert('Please upload a PDF file first'); return; }
+    submitVLMBtn.disabled = true;
+    if (vlmStatus) vlmStatus.textContent = 'Checking VLM connectivity...';
+    try {
+      // Quick connectivity check: try a simple GET to the base URL to surface CORS/connection issues early
+      if (!DEFAULT_VLM_URL) throw new Error('VLM URL not configured');
+      const base = DEFAULT_VLM_URL.replace(/\/$/, '');
+      try {
+        const probe = await fetch(base, { method: 'GET' });
+        if (vlmStatus) vlmStatus.textContent = `VLM reachable (GET ${base}) — status ${probe.status}. Proceeding to upload...`;
+      } catch (probeErr) {
+        // Probe failed; still attempt upload but surface probe error first
+        console.warn('VLM GET probe failed', probeErr);
+        if (vlmStatus) vlmStatus.textContent = `VLM GET probe failed: ${probeErr && probeErr.message ? probeErr.message : probeErr}`;
+      }
+
+      if (vlmStatus) vlmStatus.textContent = (vlmStatus.textContent || '') + ' Uploading PDF...';
+      // Inform user this may take several minutes and start a visible timer
+      startVlmTimer('VLM extraction in progress — this may take several minutes.');
+      // Try the simple FastAPI /api/convert endpoint first (preferred when server has our wrapper).
+      let res;
+      try {
+        res = await submitPdfToVLM_viaSimpleAPI(file);
+        console.log('VLM via simple API succeeded', res);
+      } catch (simpleErr) {
+        console.warn('Simple API path failed, falling back to Gradio client', simpleErr);
+        // If simple API fails, try the Gradio client approach next
+        try {
+          res = await submitPdfToVLM_viaGradioClient(file);
+          console.log('VLM via Gradio client succeeded', res);
+        } catch (clientErr) {
+          console.warn('Gradio client path failed, falling back to fetch-based uploads', clientErr);
+          // Final fallback to the generic fetch/form-based submit
+          res = await submitPdfToVLM(file);
+        }
+      }
+  // Place returned markdown/text in the editable textarea so user can modify before sending to reviewer
+  if (vlmOutput) vlmOutput.value = (res && res.text) ? res.text : (typeof res.raw === 'string' ? res.raw : JSON.stringify(res.raw, null, 2));
+  // Stop the timer and show final duration so the user knows how long extraction took
+  stopVlmTimerAndShowFinal('VLM extraction completed');
+    } catch (e) {
+      console.error('VLM submission failed', e);
+      // Provide more actionable UI message for common causes
+      // Compute a friendly message and include elapsed time in the UI so user can see how long was spent
+      let message = (e && e.message) ? e.message : String(e);
+      stopVlmTimerAndShowFinal('VLM error: ' + message);
+      if (message.toLowerCase().includes('failed to fetch') || message.toLowerCase().includes('networkerror')) {
+        message += ' — this usually means a network/CORS/SSL issue. Check browser DevTools Network/Console for CORS errors, ensure the VLM server allows cross-origin requests, and that the URL is correct.';
+      }
+      // Also show an alert so it is obvious
+      alert('VLM extraction failed: ' + message + '\nSee console/Network panel for details.');
+    } finally {
+      stopVlmTimer();
+      submitVLMBtn.disabled = false;
+    }
+  });
+}
+
 submitBtn.addEventListener('click', async () => {
   responseEl.textContent = '';
   // prefer user-entered API key, otherwise fallback to config.js provided API_KEY
@@ -107,6 +500,8 @@ submitBtn.addEventListener('click', async () => {
   // prefer model input, otherwise use config default, otherwise fallback
   const model = (modelInput && modelInput.value.trim()) || (window.APP_CONFIG && window.APP_CONFIG.HOSTED_MODEL) || 'gpt-4o-mini';
   const file = pdfFileInput.files[0];
+
+  const useVLM = vlmToggle && vlmToggle.checked;
 
   // determine mode
   let mode = 'userKey';
@@ -133,11 +528,23 @@ submitBtn.addEventListener('click', async () => {
   // allow one paint so UI updates before heavy work
   await new Promise(requestAnimationFrame);
   try {
-    const arrayBuffer = await file.arrayBuffer();
-
-    statusEl.textContent = 'Extracting PDF text...';
-    const text = await extractTextFromPDF_fromArrayBuffer(arrayBuffer);
-    statusEl.textContent = 'Text extracted, preparing request to model...';
+    let text = null;
+    // If VLM extraction is enabled and user already has VLM output, use it directly.
+    if (useVLM) {
+      const vlmTxt = (vlmOutput && vlmOutput.value) ? vlmOutput.value.trim() : '';
+      if (!vlmTxt) {
+        alert('VLM extraction is enabled but no content found. Please click "Submit PDF to VLM" first and wait for results.');
+        submitBtn.disabled = false;
+        return;
+      }
+      text = vlmTxt;
+      statusEl.textContent = 'Using VLM-extracted content (from editable textarea)';
+    } else {
+      const arrayBuffer = await file.arrayBuffer();
+      statusEl.textContent = 'Extracting PDF text...';
+      text = await extractTextFromPDF_fromArrayBuffer(arrayBuffer);
+      statusEl.textContent = 'Text extracted, preparing request to model...';
+    }
 
     // Build the messages payload: system prompt (loaded from Prompts) + optional examples + paper text
     const chosenLang = (langSelect && langSelect.value) || 'en';
