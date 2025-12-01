@@ -7,7 +7,7 @@ window.APP_CONFIG = window.APP_CONFIG || {
   HOSTED_API_URL: 'https://api.deepseek.com/chat/completions',
   // VLM (Visual-Language Model) endpoint used to extract PDF text/markdown.
   // Example: 'https://d01169a88c9b.ngrok-free.app'
-  VLM_URL: 'https://44906a0a9b8c.ngrok-free.app',
+  VLM_URL: 'https://f91f03179cba.ngrok-free.app',
   // Default model to use when none is provided in the UI
   HOSTED_MODEL: 'deepseek-chat',
   // Optional: put a public/free API key here for demo use. THIS IS VISIBLE TO ANYONE.
