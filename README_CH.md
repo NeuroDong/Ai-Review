@@ -1,4 +1,4 @@
-[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://neurodong.github.io/Ai-Review/)&nbsp;&nbsp;&nbsp;&nbsp;[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![LLM](https://img.shields.io/badge/LLM-Enabled-brightgreen)](https://github.com/simonw/llm)&nbsp;&nbsp;&nbsp;&nbsp;[![VLM](https://img.shields.io/badge/VLM-Enabled-brightgreen)](https://github.com/facebookresearch/nougat)&nbsp;&nbsp;&nbsp;&nbsp;[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![HTML5](https://img.shields.io/badge/HTML5-5-orange?logo=html5&logoColor=white)](#)&nbsp;&nbsp;&nbsp;&nbsp;[![CSS3](https://img.shields.io/badge/CSS3-3-blue?logo=css3&logoColor=white)](#)
+[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://ai-review.neurodong.top)&nbsp;&nbsp;&nbsp;&nbsp;[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![LLM](https://img.shields.io/badge/LLM-Enabled-brightgreen)](https://github.com/simonw/llm)&nbsp;&nbsp;&nbsp;&nbsp;[![VLM](https://img.shields.io/badge/VLM-Enabled-brightgreen)](https://github.com/facebookresearch/nougat)&nbsp;&nbsp;&nbsp;&nbsp;[![Gradio](https://img.shields.io/badge/Gradio-Enabled-brightgreen?logo=gradio)](https://gradio.app)&nbsp;&nbsp;&nbsp;&nbsp;[![FastAPI](https://img.shields.io/badge/FastAPI-Enabled-brightgreen?logo=fastapi)](https://fastapi.tiangolo.com/)&nbsp;&nbsp;&nbsp;&nbsp;[![Cloudflare](https://img.shields.io/badge/Cloudflare-Deployed-orange?logo=cloudflare)](https://www.cloudflare.com)&nbsp;&nbsp;&nbsp;&nbsp;
 
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
@@ -7,7 +7,7 @@
 
 本仓库致力于使用AI优化论文，方便研究者检查稿件的优点、缺点与改进建议。
 
-快速使用（网页版）: 请访问 [在线使用](https://neurodong.github.io/Ai-Review/)。下图是使用预览：
+快速使用（网页版）: 请访问 [在线使用](https://ai-review.neurodong.top)。下图是使用预览：
 
 <p align="center">
 	<img src="Show.gif" alt="Usage Preview" width="800" />
@@ -32,6 +32,7 @@
 见 [这里](Prompts/). 欢迎每个人在这个提示词上提出自己的见解，并帮我们优化它，以便更好地为社区服务。
 
 # 更新与新闻
+- **[08/12/2025]** 将在线体验网站部署到了Cloudflare上，之前的Github Pages的版本(在仓库分支可以找到之前的代码)不再使用。
 - **[16/11/2025]** 增加了使用 VLM 精确提取 PDF 内容的功能。
 - **[21/10/2025]** 在网页上加入了Few-Shot Prompting功能，见[这里](https://neurodong.github.io/Ai-Review/)。
 - **[18/10/2025]** 更新了审稿效果样例, 见[这里](Examples/)。这些样例是使用小样本提示词工程技术生成的。
