@@ -31,6 +31,7 @@ Please see: [Review example of "Deep Residual Learning for Image Recognition"](E
 See [here](Prompts/). We welcome everyone to provide feedback and help optimize these prompts to better serve the community.
 
 # Updates & News
+- **[25/12/2025]** Added a prompt comparison mode (Side by Side) to the online demo to help users choose prompts that match mainstream taste; see: https://ai-review.neurodong.top/side_by_side.html.
 - **[08/12/2025]** Deployed the online demo to Cloudflare; the previous GitHub Pages version (available on branches) is no longer used.
 - **[16/11/2025]** Added the function to accurately extract PDF content using VLM.
 - **[21/10/2025]** Added Few-Shot Prompting to the web UI, see [here](https://neurodong.github.io/Ai-Review/).
