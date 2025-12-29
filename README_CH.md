@@ -37,7 +37,7 @@
 
 # 更新与新闻
 - **[29/12/2025]** 在本仓库新增了思维链提示词。具体见[这里](https://github.com/NeuroDong/Ai-Review/tree/main/Prompts).
-- **[25/12/2025]** 给在线体验网站添加提示词对比模式(Side by Side), 用于帮助用户选择符合大众品味的提示词，具体见: https://ai-review.neurodong.top/side_by_side.html.
+- **[25/12/2025]** 给在线体验网站添加提示词对比模式(Side by Side), 用于帮助用户选择符合大众品味的提示词，具体见[这里](https://ai-review.neurodong.top/side_by_side.html).
 - **[08/12/2025]** 将在线体验网站部署到了Cloudflare上，之前的Github Pages的版本(在仓库分支可以找到之前的代码)不再使用。
 - **[16/11/2025]** 增加了使用 VLM 精确提取 PDF 内容的功能。
 - **[21/10/2025]** 在网页上加入了Few-Shot Prompting功能，见[这里](https://neurodong.github.io/Ai-Review/)。
