@@ -35,6 +35,7 @@ Please see: [Review example of "Deep Residual Learning for Image Recognition"](E
 See [here](Prompts/). We welcome everyone to provide feedback and help optimize these prompts to better serve the community.
 
 # Updates & News
+- **[31/01/2026]** SoT prompts have been added to the Ai-Review online website, and a bug where review content was unrelated to article content in Side by Side mode has been fixed (due to the PDF file not loading successfully).
 - **[29/12/2025]** Added chain-of-thought prompts to this repository. See details [here](https://github.com/NeuroDong/Ai-Review/tree/main/Prompts).
 - **[25/12/2025]** Added a prompt comparison mode (Side by Side) to the online demo to help users choose prompts that match mainstream taste; see [here](https://ai-review.neurodong.top/side_by_side.html).
 - **[08/12/2025]** Deployed the online demo to Cloudflare; the previous GitHub Pages version (available on branches) is no longer used.
