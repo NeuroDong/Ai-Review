@@ -3,6 +3,7 @@
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
 [English](README.md)
+
 # 关于 Ai-Review
 
 本仓库致力于使用AI优化论文，方便研究者检查稿件的优点、缺点与改进建议。
@@ -14,28 +15,37 @@
 </p>
 
 # 持续更新
+
 本仓库会长期持续更新。欢迎使用本仓库、提交 issue 或 pull request，以帮助改进提示词模板与网站功能，从而帮助社区伙伴们提升论文质量与被接受的概率。
 
 # 审稿效果示例
+
 请参见示例： [Deep Residual Learning for Image Recognition 的审稿示例](Examples/Review_in_Deep_Residual_Learning_for_Image_Recognition.pdf)。
 
 # 提示词工程
+
 - ***逆向提示词 (已包括)***: 通过以往大型模型生成的优秀结果反推提示词的内容。这里的优秀结果来自AAAI2026的AI审稿。
 - ***小样本提示词 (已包括)***: 网页端在“Prompting mode”里选择“Prompt + Examples (Few-Shot)”，系统将从 `Prompts/` 读取相应模板，并把 `Examples/review_in_Resnet.md` 与 `Examples/review_in_Verified.md` 作为示例一并提供给大模型以提升效果。背景介绍见[小样本提示词](https://www.promptingguide.ai/zh/techniques/fewshot)。
 - ***思考链提示词 (已包括)***: 让模型在回答问题前，显式地进行逐步推理，以提高复杂任务回答的准确性和逻辑性。具体见[这里](https://github.com/NeuroDong/Ai-Review/tree/main/Prompts).
 - ***动态交互提示词（准备加入）***: 让模型先提计划，与用户交互，确定计划后再执行审稿。
 
-# 辅助功能
-- ***使用 VLM 精准提取 PDF 内容（已包含）***：PDF内容提取的准确性直接影响审稿效果，因此已集成了基于VLM的精准PDF内容提取功能。该功能已加入网页版 (在网页上点击“Accurately extract PDF content”)，用户可按需启用（可选）。注意该功能可能不稳定，如果提取失败，取消精准提取功能，原来的功能可以照常使用。
-- ***科研图像质量评估功能（准备加入）***：计划使用 VLM 对 PDF 中的图像质量进行评估并给出改进建议，帮助用户更好地优化图片。
+# 审稿方式
+
+- ***使用VLM模型进行审稿(已包括)***：对PDF文件进行快照，然后使用VLM模型对PDF的快照进行审稿，这样可以让模型感知图片和排版信息。点击[这里](https://ai-review.neurodong.top/vlm_review.html)可体验VLM的审稿效果。
+- ***科研图像质量评估功能（准备加入）***：计划使用VLM对PDF中的图像质量进行评估并给出改进建议，帮助用户更好地优化图片。
 
 # 提示词评估
+
 - ***提示词对比模式(Side by Side, 已包含)***: 加入提示词对比功能，帮助统计大众喜好的提示词，从而为用户推荐，具体见 [这里](https://ai-review.neurodong.top/side_by_side.html).
 
 # 查看提示词
+
 见 [这里](Prompts/). 欢迎每个人在这个提示词上提出自己的见解，并帮我们优化它，以便更好地为社区服务。
 
 # 更新与新闻
+
+- **[05/02/2026]** 增加了VLM模型审稿的功能，点击[这里](https://ai-review.neurodong.top/vlm_review.html)可体验VLM的审稿效果。
+- **[31/01/2026]** Ai-Review 在线网站已添加了 SoT 提示，并修复了"Side by Side"模式下评论内容与文章内容无关的bug（由于PDF文件未成功加载）。
 - **[29/12/2025]** 在本仓库新增了思维链提示词。具体见[这里](https://github.com/NeuroDong/Ai-Review/tree/main/Prompts).
 - **[25/12/2025]** 给在线体验网站添加提示词对比模式(Side by Side), 用于帮助用户选择符合大众品味的提示词，具体见[这里](https://ai-review.neurodong.top/side_by_side.html).
 - **[08/12/2025]** 将在线体验网站部署到了Cloudflare上，之前的Github Pages的版本(在仓库分支可以找到之前的代码)不再使用。
