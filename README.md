@@ -1,4 +1,4 @@
-[![Web demo](https://img.shields.io/badge/Web%20demo-Open-blue?logo=google-chrome)](https://ai-review.neurodong.top)&nbsp;&nbsp;&nbsp;&nbsp;[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![LLM](https://img.shields.io/badge/LLM-Enabled-brightgreen)](https://github.com/simonw/llm)&nbsp;&nbsp;&nbsp;&nbsp;[![VLM](https://img.shields.io/badge/VLM-Enabled-brightgreen)](https://github.com/facebookresearch/nougat)&nbsp;&nbsp;&nbsp;&nbsp;[![Gradio](https://img.shields.io/badge/Gradio-Enabled-brightgreen?logo=gradio)](https://gradio.app)&nbsp;&nbsp;&nbsp;&nbsp;[![FastAPI](https://img.shields.io/badge/FastAPI-Enabled-brightgreen?logo=fastapi)](https://fastapi.tiangolo.com/)&nbsp;&nbsp;&nbsp;&nbsp;[![Cloudflare](https://img.shields.io/badge/Cloudflare-Deployed-orange?logo=cloudflare)](https://www.cloudflare.com)&nbsp;&nbsp;&nbsp;&nbsp;
+[![Website](https://img.shields.io/badge/Website-Open-blue?logo=google-chrome)](https://ai-review.neurodong.top)&nbsp;&nbsp;&nbsp;&nbsp;[![Skills](https://img.shields.io/badge/Skills-Enabled-brightgreen)](ai-review-skills/SKILL.md)&nbsp;&nbsp;&nbsp;&nbsp;[![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-Enabled-brightgreen)](https://github.com/dair-ai/Prompt-Engineering-Guide)&nbsp;&nbsp;&nbsp;&nbsp;[![LLM](https://img.shields.io/badge/LLM-Enabled-brightgreen)](https://github.com/simonw/llm)&nbsp;&nbsp;&nbsp;&nbsp;[![VLM](https://img.shields.io/badge/VLM-Enabled-brightgreen)](https://github.com/facebookresearch/nougat)&nbsp;&nbsp;&nbsp;&nbsp;[![Gradio](https://img.shields.io/badge/Gradio-Enabled-brightgreen?logo=gradio)](https://gradio.app)&nbsp;&nbsp;&nbsp;&nbsp;[![FastAPI](https://img.shields.io/badge/FastAPI-Enabled-brightgreen?logo=fastapi)](https://fastapi.tiangolo.com/)&nbsp;&nbsp;&nbsp;&nbsp;[![Cloudflare](https://img.shields.io/badge/Cloudflare-Deployed-orange?logo=cloudflare)](https://www.cloudflare.com)&nbsp;&nbsp;&nbsp;&nbsp;
 
 <img src="https://github.com/NeuroDong/Ai-Review/blob/main/Logo.png" width="100%">
 
@@ -8,7 +8,7 @@
 
 This repository is dedicated to using AI to optimize papers, making it easier for researchers to check the strengths, weaknesses, and improvement suggestions of manuscripts.
 
-Quick use (web): please visit [Online Demo](https://ai-review.neurodong.top). The following figure is a usage preview:
+Quick use (web): please visit [Website](https://ai-review.neurodong.top). The following figure is a usage preview:
 
 <p align="center">
 	<img src="Show.gif" alt="Usage Preview" width="800" />
