@@ -76,6 +76,7 @@ Please see: [Review example of "Deep Residual Learning for Image Recognition"](E
 - ***Using the VLM model to review (included)***: Take snapshots of the PDF file, and then use the VLM model to review the snapshots. This allows the model to perceive image and layout information. Click [here](https://ai-review.neurodong.top/vlm_review.html) to experience the review effect of VLM.
 - ***Ai-Review Skills (Included)***: Use ai-review-skills on agent platforms to review papers with the platform's built-in LLM. Supports LaTeX, Word, and other formats and accurately perceives manuscript content. See [ai-review-skills/SKILL.md](ai-review-skills/SKILL.md) for details.
 - ***Scientific image quality evaluation (Included)***: We implemented layout awareness and image aesthetics in VLM Review, and included the aesthetic results in the review content. See [here](https://ai-review.neurodong.top/vlm_review.html) for details (using VLM-Specific prompts).
+- ***Prompt injection detection (Included)***: Detects whether prompt-injection content that may interfere with the review exists in the PDF. See [here](https://ai-review.neurodong.top/prompt_injection.html) for details.
 
 # Prompt Evaluation
 
@@ -87,6 +88,7 @@ See [here](Prompts/). We welcome everyone to provide feedback and help optimize 
 
 # Updates & News
 
+- **[19/03/2026]** Added prompt-injection detection. See [here](https://ai-review.neurodong.top/prompt_injection.html) for details.
 - **[06/03/2026]** Added layout awareness and image aesthetics to VLM Review, and also provided a VLM-specific prompt. See [here](https://ai-review.neurodong.top/vlm_review.html) for details.
 - **[26/02/2026]** Added Ai-Review Skills for generating structured reviews for LaTeX, PDF, and Word manuscripts. Usable on platforms that support Agent Skills (e.g. Cursor); triggered when the user says “审稿”, “论文审稿”, or similar. See [here](ai-review-skills/SKILL.md) for details.
 - **[05/02/2026]** VLM model review function has been added. Click [here](https://ai-review.neurodong.top/vlm_review.html) to experience the VLM review process.

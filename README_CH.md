@@ -76,6 +76,7 @@ Ai-Review 提供网页端审稿，无需本地环境，打开浏览器即可使�
 - ***使用VLM模型进行审稿 (已包括)***：对PDF文件进行快照，然后使用VLM模型对PDF的快照进行审稿，这样可以让模型感知图片和排版信息。点击[这里](https://ai-review.neurodong.top/vlm_review.html)可体验VLM的审稿效果。
 - ***Ai-Review Skills (已包括)***: 可以使用ai-review-skills在智能体平台对论文进行审稿，直接使用智能体平台自带的大模型审稿就行。支持Latex, Word等格式的论文，可以论文内容进行精准感知。具体见[ai-review-skills/SKILL.md](ai-review-skills/SKILL.md)。
 - ***科研图像质量评估功能 (已包括)***: 在VLM Review中实现了排版感知和图片审美功能, 并将审美结果包括在审稿内容中, 详细见[这里](https://ai-review.neurodong.top/vlm_review.html)(使用VLM-Specific提示词).
+- ***注入提示词的检测功能 (已包括)***: 检测PDF中是否存在干扰审稿的注入提示词。 详细见[这里](https://ai-review.neurodong.top/prompt_injection.html).
 
 # 提示词评估
 
@@ -86,7 +87,7 @@ Ai-Review 提供网页端审稿，无需本地环境，打开浏览器即可使�
 见 [这里](Prompts/). 欢迎每个人在issues中提出自己的见解，并帮我们优化它，以便更好地为社区服务。
 
 # 更新与新闻
-
+- **[19/03/2026]** 增加了提示词注入(Prompt‑Injection)的检测功能。 详细见[这里](https://ai-review.neurodong.top/prompt_injection.html)。
 - **[06/03/2026]** 给VLM Review增加了排版感知和图片审美功能，并提供了VLM specific Prompt. 详细见[这里](https://ai-review.neurodong.top/vlm_review.html)。
 - **[26/02/2026]** 增加了Ai-Review的Skills, 用于对 LaTeX, PDF, Word 稿件生成结构化审稿意见。可在Cursor等支持 Agent Skill的平台上使用，当用户说「审稿」「论文审稿」时可触发。详细见[这里](ai-review-skills/SKILL.md)
 - **[05/02/2026]** 增加了VLM模型审稿的功能，点击[这里](https://ai-review.neurodong.top/vlm_review.html)可体验VLM的审稿效果。
