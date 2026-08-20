@@ -4,7 +4,11 @@
 
 [English](README.md)
 
-# 关于 Ai-Review
+# 📢 Latest News
+
+- **[20/08/2026]** 新增 **Relative Rank**：把你的稿件与目标会议论文（或你自己上传的对照稿）比较，快速定位相对竞争力。入口见[这里](https://ai-review.neurodong.top/compete.html)。100 组评估见 [Examples/Relative_Rank_evaluation.md](Examples/Relative_Rank_evaluation.md)。
+
+# 📖 关于 Ai-Review
 
 本仓库致力于使用AI优化论文，方便研究者检查稿件的优点、缺点与改进建议，并帮助科研人员快速定位自己论文的相对竞争力。
 
@@ -14,9 +18,9 @@
 	<img src="Show.gif" alt="Usage Preview" width="800" />
 </p>
 
-# 使用教程
+# 🚀 使用教程
 
-## 一、在线网站使用教程
+## 🌐 一、在线网站使用教程
 
 Ai-Review 提供网页端审稿，无需本地环境，打开浏览器即可使用。
 
@@ -43,7 +47,7 @@ Ai-Review 提供网页端审稿，无需本地环境，打开浏览器即可使�
 - **步骤**：上传自己的 PDF 稿件。可选择目标会议（如 ICLR、NeurIPS），由系统从该会已录用论文中挑选对照稿；也可自行上传对照论文。系统会对每篇 PDF 匿名化，再按竞争力排出先后，便于你看到自己的稿件排在第几。
 - **说明**：这是池内论文之间的相对排名，不是会议录用决定，也不做接受/拒稿预测。审稿回答「这篇怎么改」；Relative Rank 回答「跟这几篇比，我排第几」。在 100 组样本上的评估效果（两两正确率 83.8%）见 [Examples/Relative_Rank_evaluation.md](Examples/Relative_Rank_evaluation.md)。
 
-## 二、Skills使用教程
+## 🧩 二、Skills使用教程
 
 在支持Agent Skill的平台（如 Cursor 等）中，可将Ai-Review作为Skill使用，在对话里直接对稿件进行审稿。
 
@@ -63,24 +67,24 @@ Ai-Review 提供网页端审稿，无需本地环境，打开浏览器即可使�
 - 直接说: 使用 @ai-review-skills 审稿 @论文名 。
 - 或在对话中说「审稿」「论文审稿」或 “review my paper” 等，并**提供稿件路径**（如 `paper/main.tex`, `article.pdf`），Agent 会调用 Ai-Review Skill 生成审稿意见。
 
-# 持续更新
+# 🔄 持续更新
 
 本仓库会长期持续更新。欢迎使用本仓库、提交 issue 或 pull request，以帮助改进提示词模板与网站功能，从而帮助社区伙伴们提升论文质量与被接受的概率。
 
-# 审稿效果示例
+# 📄 审稿效果示例
 
 请参见示例： [Deep Residual Learning for Image Recognition 的审稿示例](Examples/review_in_Resnet.pdf)。
 
 Relative Rank 评估（PeerRead ICLR 2017 上 100 组样本）：[Examples/Relative_Rank_evaluation.md](Examples/Relative_Rank_evaluation.md)。
 
-# 提示词工程
+# 🧠 提示词工程
 
 - ***逆向提示词 (已包括)***: 通过以往大型模型生成的优秀结果反推提示词的内容。这里的优秀结果来自AAAI2026的AI审稿。
 - ***小样本提示词 (已包括)***: 网页端在“Prompting mode”里选择“Prompt + Examples (Few-Shot)”，系统将从 `Prompts/` 读取相应模板，并把 `Examples/review_in_Resnet.md` 与 `Examples/review_in_Verified.md` 作为示例一并提供给大模型以提升效果。背景介绍见[小样本提示词](https://www.promptingguide.ai/zh/techniques/fewshot)。
 - ***思考链提示词 (已包括)***: 让模型在回答问题前，显式地进行逐步推理，以提高复杂任务回答的准确性和逻辑性。具体见[这里](https://github.com/NeuroDong/Ai-Review/tree/main/Prompts).
 - ***动态交互提示词（准备加入）***: 让模型先提计划，与用户交互，确定计划后再执行审稿。
 
-# 审稿方式
+# 🛠️ 审稿方式
 
 - ***使用VLM模型进行审稿 (已包括)***：对PDF文件进行快照，然后使用VLM模型对PDF的快照进行审稿，这样可以让模型感知图片和排版信息。点击[这里](https://ai-review.neurodong.top/vlm_review.html)可体验VLM的审稿效果。
 - ***Ai-Review Skills (已包括)***: 可以使用ai-review-skills在智能体平台对论文进行审稿，直接使用智能体平台自带的大模型审稿就行。支持Latex, Word等格式的论文，可以论文内容进行精准感知。具体见[ai-review-skills/SKILL.md](ai-review-skills/SKILL.md)。
@@ -88,11 +92,11 @@ Relative Rank 评估（PeerRead ICLR 2017 上 100 组样本）：[Examples/Relat
 - ***注入提示词的检测功能 (已包括)***: 检测PDF中是否存在干扰审稿的注入提示词。 详细见[这里](https://ai-review.neurodong.top/prompt_injection.html).
 - ***Relative Rank (已包括)***: 基于匿名化后的 PDF 文本，将用户稿与对照论文按竞争力排序，帮助科研人员快速定位自己论文的竞争力。对照论文可由目标会议自动挑选，也可由用户自行上传。不做接受/拒稿预测。详细见[这里](https://ai-review.neurodong.top/compete.html)。100 组样本上的评估效果见 [Examples/Relative_Rank_evaluation.md](Examples/Relative_Rank_evaluation.md)。
 
-# 查看提示词
+# 👀 查看提示词
 
 见 [这里](Prompts/). 欢迎每个人在issues中提出自己的见解，并帮我们优化它，以便更好地为社区服务。
 
-# 更新与新闻
+# 📰 更新与新闻
 - **[20/08/2026]** 增加了 Relative Rank，帮助科研人员快速定位自己论文的相对竞争力。同时去掉了作用不大的 Side-by-Side 提示词对比模式，以提升使用体验。Relative Rank 详见[这里](https://ai-review.neurodong.top/compete.html)。
 - **[19/03/2026]** 增加了提示词注入(Prompt‑Injection)的检测功能。 详细见[这里](https://ai-review.neurodong.top/prompt_injection.html)。
 - **[06/03/2026]** 给VLM Review增加了排版感知和图片审美功能，并提供了VLM specific Prompt. 详细见[这里](https://ai-review.neurodong.top/vlm_review.html)。
